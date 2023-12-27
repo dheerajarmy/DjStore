@@ -1,4 +1,5 @@
 using DjStore.Data;
+using DjStore.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<DjStoreContext>(options =>
 });
 builder.Services.AddCors();
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
