@@ -33,6 +33,13 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+        {
+            "type": "pwa-chrome",
+            "name": "Launch React App",            
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/store-ui",
         }
     ]
 }
