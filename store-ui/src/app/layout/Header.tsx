@@ -10,7 +10,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useStoreContext } from "../context/StoreContext";
 const midLinks = [
   { title: "catalog", path: "/catalog" },
   { title: "about", path: "/about" },
@@ -36,6 +37,11 @@ interface Props {
   handleThemeChange: () => void;
 }
 export default function Header({ darkMode, handleThemeChange }: Props) {
+  const { basket } = useStoreContext();
+  const itemCount = basket?.basketItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
   return (
     <AppBar position="static" sx={{ mb: 4 }}>
       <Toolbar
@@ -60,8 +66,15 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
           ))}
         </List>
         <Box display="flex">
-          <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
-            <Badge badgeContent="4" color="secondary">
+          <IconButton
+            size="large"
+            component={Link}
+            to="/basket"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+          >
+            <Badge badgeContent={itemCount} color="secondary">
               <ShoppingCart />
             </Badge>
           </IconButton>
